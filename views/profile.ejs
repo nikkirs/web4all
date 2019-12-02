@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Import Google Icon Font-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!--Import materialize.css-->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="../css/materialize.min.css"
+      media="screen,projection"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+      integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+      crossorigin="anonymous"
+    />
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .dashboard {
+        margin: 0px;
+        padding: 20px 20px;
+        background-image: url("../img/image1.jpg");
+      }
+      .dashboard .row .card-image img {
+        height: 300px;
+      }
+      figure img {
+        height: 250px;
+        width: 250px;
+        border-radius: 50%;
+      }
+      figure {
+        text-align: center;
+      }
+      .info {
+        margin-top: 20px;
+        padding: 20px 50px;
+        font-family: "Arial Narrow", Arial, sans-serif;
+      }
+      #courses {
+        text-align: center;
+        margin: 0px;
+        padding: 0px 50px;
+      }
+      .add-courses {
+        text-align: center;
+        margin: 0px;
+        padding: 0px 50px;
+      }
+      .button {
+        background-color: teal; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+
+        cursor: pointer;
+      }
+      a {
+        color: black;
+      }
+      #courses {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar-fixed">
+      <nav class=" white-text">
+        <div class="container">
+          <div class="nav-wrapper">
+            <a href="/" class="brand-logo">Web4All </a>
+            <a href="/" data-target="mobile-nav" class="sidenav-trigger">
+              <i class="material-icons">menu</i></a
+            >
+
+            <ul class="right hide-on-med-and-down" style="color:black">
+              <li>
+                <a href="/">Home</a>
+              </li>
+
+              <li>
+                <a class="waves-effect waves-light btn" href="/logout"
+                  >Logout</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <ul class="sidenav" id="mobile-nav">
+      <li>
+        <a href="/">Home</a>
+      </li>
+
+      <li>
+        <a href="/logout">Logout</a>
+      </li>
+    </ul>
+
+    <div class="dashboard">
+      <div class="row">
+        <div class="col s12 m4 l4">
+          <figure class="card-profile-image">
+            <img src=<%=user.gravatar%> alt="profile image" class="circle
+            z-depth-2 responsive-img activator" />
+          </figure>
+        </div>
+        <div class="col s12 m8 l8">
+          <div class="info card-image z-depth-2">
+            <h5>Name: <%=user.name%></h5>
+
+            <h5>email id: <%=user.email_id%></h5>
+            <h5>College: <%=user.college%></h5>
+
+            <h5>Branch:<%=user.branch%></h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%if(course.length!=0){%>
+
+    <div style="text-align: center;">
+      <h5 style="font-weight:bold">Your courses</h5>
+    </div>
+    <%}%>
+    <div id="courses">
+      <div class="row">
+        <%course.forEach(function(m){%>
+
+        <div class="card col s12 m6 l4 ">
+          <div class="video-container">
+            <img src="<%=m.course_img%>" />
+          </div>
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4"
+              ><%=m.course_name%><i class="material-icons right"
+                >more_vert</i
+              ></span
+            >
+            <p><a href="/coursecontent/<%=m.course_id%>">Click here</a></p>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4"
+              ><%=m.course_name%><i class="material-icons right">close</i></span
+            >
+            <p>
+              <%=m.course_details%>
+            </p>
+          </div>
+        </div>
+        <% })%>
+      </div>
+    </div>
+    <div class="add-courses">
+      <h5>Add courses</h5>
+      <a
+        class="btn-floating btn-large waves-effect waves-light red"
+        onclick="abc()"
+        ><i class="material-icons">add</i></a
+      >
+    </div>
+
+    <div style="display: none" id="dis">
+      <h5 style="text-align: center;">Select your courses</h5>
+      <form action="/c" method="post">
+        <div class="row" style="margin-left:38vw">
+          <div class="col s12 m3">
+            <p>
+              <label>
+                <input type="checkbox" value="1" name="courses" />
+                <span>React front to back</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input type="checkbox" value="2" name="courses" />
+                <span>Angular</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input type="checkbox" value="3" name="courses" />
+                <span>HTML and CSS</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input type="checkbox" value="4" name="courses" />
+                <span>BootStrap</span>
+              </label>
+            </p>
+          </div>
+          <div class="col s12 m3">
+            <p>
+              <label>
+                <input type="checkbox" value="5" name="courses" />
+                <span>NodeJS</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input type="checkbox" value="6" name="courses" />
+                <span>VueJS</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input type="checkbox" value="7" name="courses" />
+                <span>Redux</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input type="checkbox" value="8" name="courses" />
+                <span>Materialize CSS</span>
+              </label>
+            </p>
+          </div>
+        </div>
+        <div style="margin-left:610px;margin-bottom:10px">
+          <input class="button" type="submit" />
+        </div>
+      </form>
+    </div>
+    <script>
+      function abc() {
+        var a = document.getElementById("dis");
+        if (a.style.display == "block") {
+          a.style.display = "none";
+        } else {
+          a.style.display = "block";
+        }
+      }
+    </script>
+    <script type="text/javascript" src="../js/materialize.min.js"></script>
+
+    <script type="text/javascript" src="../js/style.js"></script>
+  </body>
+</html>

@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Import Google Icon Font-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!--Import materialize.css-->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="../css/materialize.min.css"
+      media="screen,projection"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+      integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+      crossorigin="anonymous"
+    />
+    <link type="text/css" rel="stylesheet" href="../css/style.css" />
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+      * {
+        box-sizing: border-box;
+      }
+
+      .contain {
+        width: 850px;
+        min-height: 315px;
+        margin: 0 auto;
+        position: relative;
+        padding-bottom: 30px;
+        overflow: hidden;
+        margin-bottom: 100px;
+      }
+      h1 {
+        text-align: center;
+        text-shadow: 0 1px white;
+        color: #02303f;
+      }
+      h2 {
+        color: #736861;
+        margin: 15px 0 5px;
+        text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+      }
+      h6 {
+        color: #928566;
+        margin: 0;
+      }
+      input[type="radio"] {
+        position: absolute;
+        width: 1px; /* Setting this to 0 make it invisible for VoiceOver */
+        height: 1px; /* Setting this to 0 make it invisible for VoiceOver */
+        padding: 0;
+        margin: -1px;
+        border: 0;
+        clip: rect(0 0 0 0);
+        overflow: hidden;
+      }
+      label {
+        display: block;
+        width: 32%;
+        border: 4px solid grey;
+        position: absolute;
+        bottom: 5px;
+        cursor: pointer;
+        transition: border-color 0.3s linear;
+      }
+
+      label.second {
+        left: 34%;
+      }
+      label.third {
+        left: 68%;
+      }
+
+      blockquote {
+        margin: 0;
+        padding: 30px;
+        width: 850px;
+        background-color: #db532b;
+        color: white;
+        box-shadow: 0 5px 2px rgba(0, 0, 0, 0.1);
+        position: relative;
+        transition: background-color 0.6s linear;
+      }
+
+      blockquote:after {
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        top: 100%;
+        border: solid transparent;
+        border-top-color: #da532b;
+        border-left-color: #da532b;
+        border-width: 10px;
+        left: 10%;
+      }
+      #second:checked ~ .two blockquote {
+        background-color: purple;
+      }
+      .two blockquote:after {
+        border: solid transparent;
+        border-top-color: purple;
+        border-left-color: purple;
+        border-width: 10px;
+      }
+      #third:checked ~ .three blockquote {
+        background-color: #54885f;
+      }
+      .three blockquote:after {
+        border: solid transparent;
+        border-top-color: #54885f;
+        border-left-color: #54885f;
+        border-width: 10px;
+      }
+      .quotes {
+        position: absolute;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 5em;
+      }
+      .leftq {
+        top: -25px;
+        left: 5px;
+      }
+      .rightq {
+        bottom: -10px;
+        right: 5px;
+      }
+
+      .slide {
+        position: absolute;
+        left: -100%;
+        opacity: 0;
+        transition: all 0.6s ease-in;
+      }
+
+      #first:checked ~ label.first {
+        border-width: 6px;
+        border-color: #db532b;
+      }
+      #second:checked ~ label.second {
+        border-width: 6px;
+        border-color: purple;
+      }
+      #third:checked ~ label.third {
+        border: 6px solid #54885f;
+      }
+
+      #first:checked ~ div.one {
+        left: 0;
+        opacity: 1;
+      }
+      #second:checked ~ div.two {
+        left: 0;
+        opacity: 1;
+      }
+      #third:checked ~ div.three {
+        left: 0;
+        opacity: 1;
+      }
+
+      @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css);
+
+      /*/ start count stats /*/
+
+      section#counter-stats {
+        display: flex;
+        justify-content: center;
+        margin-top: 100px;
+      }
+
+      .stats {
+        text-align: center;
+        font-size: 35px;
+        font-weight: 700;
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .stats .fa {
+        color: #008080;
+        font-size: 60px;
+      }
+      .join {
+        margin-top: 40px;
+        padding: 20px;
+        background-color: #d9534f;
+        height: 400px;
+        width: auto;
+      }
+      .countdown {
+        font-size: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      .countdown div {
+        padding: 20px;
+        border: 1px #fff solid;
+        border-radius: 10px;
+        background: #17a2b8;
+        opacity: 0.7;
+        margin: 5px;
+      }
+
+      .countdown span {
+        display: block;
+        font-size: 25px;
+      }
+
+      /*/ end count stats /*/
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.js"
+      integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <!-- navbar -->
+    <%if(user==undefined){%>
+    <div class="navbar-fixed">
+      <nav class=" white-text">
+        <div class="container">
+          <div class="nav-wrapper">
+            <a href="/" class="brand-logo">Web4All </a>
+            <a href="/" data-target="mobile-nav" class="sidenav-trigger">
+              <i class="material-icons">menu</i></a
+            >
+
+            <ul class="right hide-on-med-and-down" style="color:black">
+              <li>
+                <a href="/">Home</a>
+              </li>
+              <li>
+                <a href="#c">Courses</a>
+              </li>
+              <li>
+                <a href="#courses">Popular Courses</a>
+              </li>
+              <li>
+                <a href="#as">About</a>
+              </li>
+              <li>
+                <a href="#headings">Contact</a>
+              </li>
+              <li>
+                <a class="waves-effect waves-light btn" href="/login">Login</a>
+              </li>
+              <li>
+                <a class="waves-effect waves-light btn" href="/register"
+                  >Signup</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <%}else{%>
+    <div class="navbar-fixed">
+      <nav class=" white-text">
+        <!-- <div class="container"> -->
+        <div class="nav-wrapper" style="padding:0px 10vw">
+          <a href="/" class="brand-logo">Web4All </a>
+          <a href="/" data-target="mobile-nav" class="sidenav-trigger">
+            <i class="material-icons">menu</i></a
+          >
+
+          <ul class="right hide-on-med-and-down" style="color:black">
+            <li>
+              <a href="/">Home</a>
+            </li>
+            <li>
+              <a href="#c">Courses</a>
+            </li>
+            <li>
+              <a href="#courses">Popular Courses</a>
+            </li>
+            <li>
+              <a href="#as">About</a>
+            </li>
+            <li>
+              <a href="#headings">Contact</a>
+            </li>
+            <li>
+              <a class="waves-effect waves-light btn" href="/p"
+                ><%=user.user%></a
+              >
+            </li>
+            <li>
+              <a class="waves-effect waves-light btn" href="/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+        <!-- </div> -->
+      </nav>
+    </div>
+    <%}%> <%if(user==undefined){%>
+    <ul class="sidenav" id="mobile-nav">
+      <li>
+        <a href="/">Home</a>
+      </li>
+      <li>
+        <a href="#c">Courses</a>
+      </li>
+      <li>
+        <a href="#courses">Popular Courses</a>
+      </li>
+      <li>
+        <a href="#as">About</a>
+      </li>
+      <li>
+        <a href="#headings">Contact</a>
+      </li>
+      <li></li>
+      <li>
+        <a href="/login">Login</a>
+      </li>
+      <li>
+        <a href="/register">Signup</a>
+      </li>
+    </ul>
+    <%}else{%>
+
+    <ul class="sidenav" id="mobile-nav">
+      <li>
+        <a href="/">Home</a>
+      </li>
+      <li>
+        <a href="#c">Courses</a>
+      </li>
+      <li>
+        <a href="#courses">Popular Courses</a>
+      </li>
+      <li>
+        <a href="#as">About</a>
+      </li>
+      <li>
+        <a href="#headings">Contact</a>
+      </li>
+      <li>
+        <a href="/p"><%=user.user%></a>
+      </li>
+      <li>
+        <a href="/logout">Logout</a>
+      </li>
+    </ul>
+    <%}%>
+    <!-- slider -->
+    <div class="slider">
+      <ul class="slides">
+        <li>
+          <img src="../img/new2.jpg" />
+          <!-- random image -->
+          <div class="caption center-align">
+            <h3>Web For All</h3>
+            <h5 class="light grey-text text-lighten-3">
+              World's Largest Collection of Courses
+            </h5>
+          </div>
+        </li>
+        <li>
+          <img src="../img/new1.jpg" style="opacity:0.7" />
+          <!-- random image -->
+          <div class="caption left-align">
+            <h3 style="">Learn From</h3>
+            <br />
+            <h3 style="">Scratch to Advance</h3>
+          </div>
+        </li>
+        <li>
+          <img src="../img/new3.jpg" />
+          <!-- random image -->
+          <div class="caption right-align">
+            <h3>Learn All the</h3>
+            <br />
+            <h3>
+              Trending Web Technologies
+            </h3>
+          </div>
+        </li>
+        <li>
+          <img src="../img/image4.jpg" />
+          <!-- random image -->
+          <div class="caption center-align">
+            <h3>Join Us</h3>
+            <h5 class="light grey-text text-lighten-3">
+              To become full stack web developer
+            </h5>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div id="c" style="text-align: center;margin: 70px">
+      <h3>Course Categories</h3>
+    </div>
+
+    <div id="categories">
+      <div class="row">
+        <div class="col s12 m3">
+          <div class="card">
+            <div class="card-image">
+              <img src="../img/1.png" />
+            </div>
+
+            <div class="card-action">
+              <a href="#">React</a>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m3">
+          <div class="card">
+            <div class="card-image">
+              <img src="../img/2.png" />
+            </div>
+
+            <div class="card-action">
+              <a href="#">Angular</a>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m3">
+          <div class="card">
+            <div class="card-image">
+              <img src="../img/3.png" />
+            </div>
+
+            <div class="card-action">
+              <a href="#">HTML</a>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m3">
+          <div class="card">
+            <div class="card-image">
+              <img src="../img/4.png" />
+            </div>
+
+            <div class="card-action">
+              <a href="#">Bootstrap</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center;margin: 70px">
+      <h3>Our Popular Courses</h3>
+    </div>
+
+    <div id="courses">
+      <div class="row">
+        <div class="card col s12 m6 l6 ">
+          <div class="video-container">
+            <!-- <iframe
+              width="853"
+              height="480"
+              src="../img/Nodejs.png"
+              frameborder="0"
+              allowfullscreen
+            ></iframe> -->
+            <img src="../img/nodejs.PNG" />
+          </div>
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4"
+              >Nodejs<i class="material-icons right">more_vert</i></span
+            >
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4"
+              >React Front to Back<i class="material-icons right"
+                >close</i
+              ></span
+            >
+            <p>
+              Here is some more information about this product that is only
+              revealed once clicked on.
+            </p>
+          </div>
+        </div>
+
+        <div class="card col s12 m6 l6">
+          <div class="video-container">
+            <!-- <iframe
+              width="853"
+              height="480"
+              src="//www.youtube.com/embed/UB1O30fR-EE"
+              frameborder="0"
+              allowfullscreen
+            ></iframe> -->
+            <img src="../img/html_css.PNG" />
+          </div>
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4"
+              >HTML and CSS<i class="material-icons right">more_vert</i></span
+            >
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4"
+              >MERN Stack Development<i class="material-icons right"
+                >close</i
+              ></span
+            >
+            <p>
+              Here is some more information about this product that is only
+              revealed once clicked on.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="card col s12 m6 l6 ">
+          <div class="video-container">
+            <!-- <iframe
+              width="853"
+              height="480"
+              src="//www.youtube.com/embed/vZvuXYuW5Zs"
+              frameborder="0"
+              allowfullscreen
+            ></iframe> -->
+            <img src="../img/react.PNG" />
+          </div>
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4"
+              >React <i class="material-icons right">more_vert</i></span
+            >
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4"
+              >React Front to Back<i class="material-icons right"
+                >close</i
+              ></span
+            >
+            <p>
+              Here is some more information about this product that is only
+              revealed once clicked on.
+            </p>
+          </div>
+        </div>
+
+        <div class="card col s12 m6 l6">
+          <div class="video-container">
+            <!-- <iframe
+              width="853"
+              height="480"
+              src="//www.youtube.com/embed/Fdf5aTYRW0E"
+              frameborder="0"
+              allowfullscreen
+            ></iframe> -->
+            <img src="../img/angular.PNG" />
+          </div>
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4"
+              >Angular<i class="material-icons right">more_vert</i></span
+            >
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4"
+              >MERN Stack Development<i class="material-icons right"
+                >close</i
+              ></span
+            >
+            <p>
+              Here is some more information about this product that is only
+              revealed once clicked on.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- teachers -->
+    <!-- <div style="text-align: center;">
+      <h5>Teachers</h5>
+    </div>
+
+    <div class="container" id="teachers">
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="card">
+            <div class="card-image">
+              <img src="../img/react.png" />
+            </div>
+            <div class="card-content">
+              <p>
+                I am a very simple card. I am good at containing small bits of
+                information. I am convenient because I require little markup to
+                use effectively.
+              </p>
+            </div>
+            <div class="card-action">
+              <a href="#">React</a>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m4">
+          <div class="card">
+            <div class="card-image">
+              <img src="../img/angular.png" />
+            </div>
+            <div class="card-content">
+              <p>
+                I am a very simple card. I am good at containing small bits of
+                information. I am convenient because I require little markup to
+                use effectively.
+              </p>
+            </div>
+            <div class="card-action">
+              <a href="#">Angular</a>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m4">
+          <div class="card">
+            <div class="card-image">
+              <img src="../img//bootstrap.png" />
+            </div>
+            <div class="card-content">
+              <p>
+                I am a very simple card. I am good at containing small bits of
+                information. I am convenient because I require little markup to
+                use effectively.
+              </p>
+            </div>
+            <div class="card-action">
+              <a href="#">Bootstrap</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- footer -->
+    <!-- start count stats -->
+    <div id="as" style="text-align: center;margin: 70px">
+      <h3>About Us</h3>
+    </div>
+    <section
+      id="counter-stats"
+      class="wow fadeInRight"
+      data-wow-duration="1.4s"
+    >
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m3 stats">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            <div class="counting" data-count="890435">0</div>
+            <h5>Students Taught</h5>
+          </div>
+
+          <div class="col s12 m3 stats">
+            <i class="fa fa-code" aria-hidden="true"></i>
+            <div class="counting" data-count="20">0</div>
+            <h5>Number of Courses</h5>
+          </div>
+
+          <div class="col s12 m3 stats">
+            <i class="fa fa-flag" aria-hidden="true"></i>
+            <div class="counting" data-count="95">0</div>
+            <h5>Number of Countries</h5>
+          </div>
+
+          <div class="col s12 m3 stats">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            <div class="counting" data-count="70890">0</div>
+            <h5>Number of Teachers</h5>
+          </div>
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end container -->
+    </section>
+    <section class="join">
+      <div id="as" style="text-align: center;margin: 20px">
+        <h3>Get 400 of Online Courses for Free</h3>
+      </div>
+      <div class="countdown"></div>
+      <a
+        style="margin-left: 520px;margin-top:20px;"
+        class="waves-effect waves-light btn"
+        href="/register"
+        >Enroll Now</a
+      >
+    </section>
+    <!-- end cont stats -->
+    <div id="as" style="text-align: center;margin: 70px">
+      <h3>Testinomials</h3>
+    </div>
+    <div class="contain">
+      <input type="radio" name="nav" id="first" checked />
+      <input type="radio" name="nav" id="second" />
+      <input type="radio" name="nav" id="third" />
+
+      <label for="first" class="first"></label>
+      <label for="second" class="second"></label>
+      <label for="third" class="third"></label>
+
+      <div class="one slide">
+        <blockquote>
+          <span class="leftq quotes">&ldquo;</span> Web4All is a life saver. I
+          don't have the time or money for a college education. My goal is to
+          become a freelance web developer, and thanks to Web4All, I'm really
+          close.
+          <span class="rightq quotes">&bdquo; </span>
+        </blockquote>
+
+        <h2>Nikhil Yadav</h2>
+        <h6>Full Stack Web Developer</h6>
+      </div>
+
+      <div class="two slide">
+        <blockquote>
+          <span class="leftq quotes">&ldquo;</span> I believe in lifelong
+          learning and Web4All is a great place to learn from experts. I've
+          learned a lot and recommend it to all my friends.<span
+            class="rightq quotes"
+            >&bdquo;
+          </span>
+        </blockquote>
+
+        <h2>Nithin Kumar</h2>
+        <h6>ReactJS Developer</h6>
+      </div>
+
+      <div class="three slide">
+        <blockquote>
+          <span class="quotes leftq"> &ldquo;</span> I LOVE Web4All! The courses
+          are fantastic and the instructors are so fun and knowledgeable. I only
+          wish we found it sooner.
+          <span class="rightq quotes">&bdquo; </span>
+        </blockquote>
+
+        <h2>Naren Kulkarni</h2>
+        <h6>Student at PESIT-BSC</h6>
+      </div>
+    </div>
+    <footer
+      class="section red accent-2 white-text center"
+      style="padding-bottom:0px;margin:0px;font-size:8px"
+      id="headings"
+    >
+      <div class="container" id="conatct">
+        <div style="text-align: center;">
+          <h3 style="margin:0px;font-size:24px">Contact Us</h3>
+        </div>
+
+        <section
+          id="contact"
+          class="section section-contact scrollspy"
+          style="padding:0px;margin:0px;font-size:12px"
+        >
+          <div class="container">
+            <div class="row" style="padding:0px;margin:0px">
+              <div class="col s12 m5">
+                <div
+                  class="card-panel teal white-text center"
+                  style="padding:0px;margin-top:8px"
+                >
+                  <div style="color:#000">
+                    <ul class="collection with-header">
+                      <li class="collection-item" style="padding:2px">
+                        Ph: 8310475078
+                      </li>
+
+                      <li class="collection-item" style="padding:2px">
+                        Mail: info@afire.com
+                      </li>
+                      <li class="collection-item" style="padding:2px">
+                        Web4All, Electronic City, Bangalore Karnataka, India
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col s12 m2"></div>
+              <div class="col s12 m5">
+                <h4 style="font-size:18px;padding-bottom:0px;margin-bottom:0px">
+                  Follow Web4All
+                </h4>
+                <p>Follow us on social media for special offers</p>
+                <a
+                  href="htttps://facebook.com"
+                  target="_blank"
+                  class="white-text"
+                  style="margin-right:15px"
+                >
+                  <i class="fab fa-facebook fa-3x"></i>
+                </a>
+                <a
+                  href="htttps://twitter.com"
+                  target="_blank"
+                  class="white-text"
+                  style="margin-right:15px"
+                >
+                  <i class="fab fa-twitter fa-3x"></i>
+                </a>
+                <a
+                  href="htttps://linkedin.com"
+                  target="_blank"
+                  class="white-text"
+                  style="margin-right:15px"
+                >
+                  <i class="fab fa-linkedin fa-3x"></i>
+                </a>
+                <a
+                  href="htttps://googleplus.com"
+                  target="_blank"
+                  class="white-text"
+                  style="margin-right:15px"
+                >
+                  <i class="fab fa-google-plus fa-3x"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <p class="flow-text" style="margin:0px;font-size:18px">
+        Web4All &copy; 2019
+      </p>
+    </footer>
+    <script>
+      // number count for stats, using jQuery animate
+
+      $(".counting").each(function() {
+        var $this = $(this),
+          countTo = $this.attr("data-count");
+
+        $({ countNum: $this.text() }).animate(
+          {
+            countNum: countTo
+          },
+
+          {
+            duration: 3000,
+            easing: "linear",
+            step: function() {
+              $this.text(Math.floor(this.countNum));
+            },
+            complete: function() {
+              $this.text(this.countNum);
+              //alert('finished');
+            }
+          }
+        );
+      });
+    </script>
+    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
+
+    <script>
+      $(function() {
+        // Smooth Scrolling
+        $('a[href*="#"]:not([href="#"])').click(function() {
+          if (
+            location.pathname.replace(/^\//, "") ==
+              this.pathname.replace(/^\//, "") &&
+            location.hostname == this.hostname
+          ) {
+            var target = $(this.hash);
+            target = target.length
+              ? target
+              : $("[name=" + this.hash.slice(1) + "]");
+            if (target.length) {
+              $("html, body").animate(
+                {
+                  scrollTop: target.offset().top
+                },
+                1000
+              );
+              return false;
+            }
+          }
+        });
+      });
+    </script>
+    <script>
+      const countdown = document.querySelector(".countdown");
+
+      // Set Launch Date (ms)
+      const launchDate = new Date("Dec 30, 2019 00:00:00").getTime();
+
+      // Update every second
+      const intvl = setInterval(() => {
+        // Get todays date and time (ms)
+        const now = new Date().getTime();
+
+        // Distance from now and the launch date (ms)
+        const distance = launchDate - now;
+
+        // Time calculation
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display result
+        countdown.innerHTML = `
+  <div>${days}<span>Days</span></div> 
+  <div>${hours}<span>Hours</span></div>
+  <div>${mins}<span>Minutes</span></div>
+  <div>${seconds}<span>Seconds</span></div>
+  `;
+
+        // If launch date is reached
+        if (distance < 0) {
+          // Stop countdown
+          clearInterval(intvl);
+          // Style and output text
+          countdown.style.color = "#17a2b8";
+          countdown.innerHTML = "Launched!";
+        }
+      }, 1000);
+    </script>
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="../js/materialize.min.js"></script>
+
+    <script type="text/javascript" src="../js/style.js"></script>
+  </body>
+</html>

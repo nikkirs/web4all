@@ -1,0 +1,17 @@
+#categories img,
+#teachers img {
+  padding: 20px;
+}
+
+#courses,
+#categories {
+  text-align: center;
+  margin: 0px;
+
+  padding: 0px 100px;
+}
+
+#categories a {
+  color: black;
+  font-weight: bold;
+}
